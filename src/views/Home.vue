@@ -1,66 +1,49 @@
 <template>
-  <div class="question-form">
-    <form name="ask" netlify enctype="application/x-www-form-urlencoded" netlify-honeypod="bot-field" method="post" @submit.prevent="handleSubmit">
-        <form name="ask" netlify netlify-honeypot="bot-field" hidden>
-          <input type="text" name="name" />
-          <textarea name="question"></textarea>
-        </form>
-        <label>
-          Your Name:
-          <input
-            type="text"
-            name="name"
-            @input="ev => form.name = ev.target.value"
-            >
-        </label>
-        <label>
-          Your Question:
-          <textarea
-             name="question"
-             @input="ev => form.question = ev.target.value"
-             placeholder="Question Goes Here"
-          />
-        </label>
-      <button type="submit" class="submit-button">Ask a question</button>
+  <div>
+    <form  @submit.prevent="onSubmit">
+      <input type="text" v-model="name" name="name" >
+      <input type="email" v-model="email" name="email">
+      <textarea v-model="content" name="content"></textarea>
+
+      <button type="submit">送信</button>
+    </form>
+
+
+    <form name="contact" netlify netlify-honeypot="bot-field" hidden>
+      <input type="text" name="name" />
+      <input type="email" name="email" />
+      <textarea name="content"></textarea>
     </form>
   </div>
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
-  name: "question-form",
   data() {
     return {
-      form: {
-        name: "",
-        question: ""
-      },
-    };
+      name: '',
+      email: '',
+      content: '',
+    }
   },
   methods: {
-    encode(data) {
-      return Object.keys(data)
-        .map(
-          key => `${encodeURIComponent(key)}=${encodeURIComponent(data[key])}`
-        )
-        .join("&");
-    },
-    handleSubmit() {
-      fetch("/", {
-        method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: this.encode({
-          "form-name": "ask-question",
-          ...this.form
-        })
-      })
+    onSubmit() {
+      const params = new URLSearchParams()
+
+      params.append('form-name', 'contact') // Forms使うのに必要
+
+      params.append('name', this.name)
+      params.append('email', this.email)
+      params.append('content', this.content)
+
+      axios
+        .post('/', params)
         .then(() => {
           this.$router.push("about");
         })
-        .catch(() => {
-          this.$router.push("about");
-        });
     }
   }
-};
+}
 </script>
