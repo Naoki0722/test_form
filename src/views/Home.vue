@@ -1,7 +1,10 @@
 <template>
   <div class="question-form">
-    <form name="ask-question" netlify enctype="application/x-www-form-urlencoded" netlify-honeypod="bot-field" method="post" @submit.prevent="handleSubmit">
-      <input type="hidden" name="form-name" value="ask-question" />
+    <form name="ask" netlify enctype="application/x-www-form-urlencoded" netlify-honeypod="bot-field" method="post" @submit.prevent="handleSubmit">
+        <form name="ask" netlify netlify-honeypot="bot-field" hidden>
+          <input type="text" name="name" />
+          <textarea name="question"></textarea>
+        </form>
         <label>
           Your Name:
           <input
@@ -13,7 +16,6 @@
         <label>
           Your Question:
           <textarea
-             ref="input"
              name="question"
              @input="ev => form.question = ev.target.value"
              placeholder="Question Goes Here"
