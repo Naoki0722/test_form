@@ -1,18 +1,24 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <form name="contact" method="POST" netlify netlify-honeypot="bot-field">
+      <input type="hidden" name="form-name" value="contact" />
+      <label>名前</label>
+      <input type="text" name="name" />
+      <label>メールアドレス</label>
+      <input type="text" name="email" />
+      <label>お問い合わせ内容</label>
+      <textarea name="message"></textarea>
+      <button>送信</button>
+    </form>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
 
 export default {
   name: 'Home',
   components: {
-    HelloWorld
   }
 }
 </script>
