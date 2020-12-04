@@ -5,10 +5,10 @@
       <label>名前</label>
       <input type="text" name="name" />
       <label>メールアドレス</label>
-      <input type="text" name="email" />
+      <input type="email" name="email" />
       <label>お問い合わせ内容</label>
       <textarea name="message"></textarea>
-      <button>送信</button>
+      <button type="submit">送信</button>
     </form>
   </div>
 </template>
