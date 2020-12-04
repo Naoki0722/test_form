@@ -1,6 +1,6 @@
 <template>
   <div class="question-form">
-    <form method="post" @submit.prevent="handleSubmit">
+    <form name="ask-question" netlify enctype="application/x-www-form-urlencoded" netlify-honeypod="bot-field" method="post" @submit.prevent="handleSubmit">
       <input type="hidden" name="form-name" value="ask-question" />
         <label>
           Your Name:
@@ -29,23 +29,13 @@ export default {
   name: "question-form",
   data() {
     return {
-      panelists: ["Chris Fritz", "Evan You", "Both"],
       form: {
-        askPerson: "Chris Fritz",
         name: "",
         question: ""
       },
-      sent: false,
-      status: {}
     };
   },
   methods: {
-    ifEvan(person) {
-      return person === "Evan You" || person === "Both";
-    },
-    removeNotification() {
-      this.sent = false;
-    },
     encode(data) {
       return Object.keys(data)
         .map(
